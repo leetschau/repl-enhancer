@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "repl-enhancer"
+version = "0.1.0"
+description = "REPL Enhancer"
+authors = ["Leo <leetschau@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.13"
+pexpect = "^4.9.0"
+prompt-toolkit = "^3.0.47"
+Pygments = "^2.18.0"
+
+[tool.poetry.group.dev.dependencies]
+ipython = "^8.26.0"
+pyinstaller = "^6.9.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
