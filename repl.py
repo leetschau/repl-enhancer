@@ -1,6 +1,7 @@
 import pexpect
 import argparse
 import importlib
+from pathlib import Path
 from pygments.styles.vim import VimStyle
 from prompt_toolkit import PromptSession
 from prompt_toolkit.history import FileHistory
@@ -17,7 +18,7 @@ parser.add_argument('command', help='The command to run, e.g.: R, python, agscri
 parser.add_argument('cmd_prompt', help='Prompt of the original shell, e.g.: "> " for R, "aggressor> " for agscript')
 parser.add_argument('-m', '--multiline', action='store_true', help='Support mutiline mode? Use Alt-Enter to send command when enabled')
 parser.add_argument('-s', '--syntax-lexer', default='pygments.lexers.perl.PerlLexer', help='Syntax highlighting lexer')
-parser.add_argument('-c', '--cmd-history-file', default="./cmdhistory", help='Command history file path used for autocompletion')
+parser.add_argument('-c', '--cmd-history-file', default="~/.local/share/repl-history", help='Command history file path used for autocompletion')
 parser.add_argument('-w', '--working-dir', default='./', help='The working directory of the REPL')
 args = parser.parse_args()
 
@@ -98,8 +99,12 @@ def run(session, cmd_prompt, ml, synlexer):
 
 def main():
     p = pexpect.spawn(args.command, cwd=args.working_dir)
-    sn = PromptSession(history=FileHistory(args.cmd_history_file))
     print(f'Willkommen beim REPL Enhancer\n私はアプリケーション {args.command} の代理人です\n')
+    hist_file_path = Path(args.cmd_history_file).expanduser()
+    if not hist_file_path.parent.exists():
+        hist_file_path.parent.mkdir(parents=True)
+    print(f'Save/load command history from {args.cmd_history_file}.')
+    sn = PromptSession(history=FileHistory(hist_file_path))
     lexer = load_lexer(args.syntax_lexer)
 
     while True:

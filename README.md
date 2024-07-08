@@ -1,4 +1,4 @@
-# REPL Enchancer
+# REPL Enhancer
 
 Verwandeln Sie jede einfache Konsole in ein schickes REPL.
 
