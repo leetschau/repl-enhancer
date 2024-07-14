@@ -2,13 +2,14 @@
 
 Verwandeln Sie jede einfache Konsole in ein schickes REPL.
 
-# Usage
+## Usage
 
 Put the executable into $PATH and run: `repl -h`.
 
-# Deployment
+## Deployment
 
 ```sh
 poetry install
 poetry run pyinstaller --onefile --strip repl.py
 ```
+
